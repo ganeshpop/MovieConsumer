@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Insert title here</title>
+</head>
+<body>
+<h2>Welcome</h2>
+<h1>Movie Update</h1>
+
+<form action="#" th:action="@{./updateMovieById}" th:object="${movie}" method="put">
+  Select Movie ID : <select th:field="*{id}">
+  <option th:each="id : ${movieIds}" th:value="${id}" th:label="${id}"></option>
+</select><br><br>
+  Enter New Movie Name : <input type="text" th:field="*{name}"><br><br>
+  <input type="submit" value="Update Movie">
+</form>
+
+<br><br>
+<a href="./">Go To Main Page</a>
+</body>
+</html>
