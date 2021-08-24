@@ -1,14 +1,15 @@
 package com.ganesh.service;
 
 import com.ganesh.bean.Movie;
+import com.ganesh.bean.MovieList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -23,19 +24,22 @@ public class MovieService {
         return restTemplate.getForObject("http://localhost:8082/movies/" + id, Movie.class);
 
     }
-
-    public Collection<Movie> getAllMovies() {
-        ResponseEntity<Collection<Movie>> responseEntity =
-                restTemplate.exchange(
-                        "http://localhost:8082/movies/",
-                        HttpMethod.GET,
-                        null,
-                        new ParameterizedTypeReference<Collection<Movie>>() {}
-                );
-        Collection<Movie> movies = responseEntity.getBody();
-        assert movies != null;
-        return new ArrayList<>(movies);
+    public List<Movie> getAllMovies() {
+        return Objects.requireNonNull(restTemplate.getForObject("http://localhost:8082/movies/", MovieList.class)).getMovies();
     }
+
+//    public Collection<Movie> getAllMovies() {
+//        ResponseEntity<Collection<Movie>> responseEntity =
+//                restTemplate.exchange(
+//                        "http://localhost:8082/movies/",
+//                        HttpMethod.GET,
+//                        null,
+//                        new ParameterizedTypeReference<Collection<Movie>>() {}
+//                );
+//        Collection<Movie> movies = responseEntity.getBody();
+//        assert movies != null;
+//        return new ArrayList<>(movies);
+//    }
 
 
     public Movie insertMovie(Movie movie) {

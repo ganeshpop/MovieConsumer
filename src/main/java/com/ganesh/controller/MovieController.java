@@ -32,6 +32,10 @@ public class MovieController {
         return new ModelAndView("insertMovie", "movie", new Movie());
     }
 
+    @RequestMapping("movieOperations")
+    public ModelAndView movieIndexController() {
+        return new ModelAndView("movieIndex");
+    }
     @RequestMapping("deleteMovie")
     public ModelAndView movieDeleteController() {
         return new ModelAndView("deleteMovieById");

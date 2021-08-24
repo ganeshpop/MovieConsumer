@@ -17,6 +17,7 @@ public class RatingController {
     public void setRatingService(RatingService ratingService) {
         this.ratingService = ratingService;
     }
+
     @RequestMapping("rating")
     public ModelAndView movieController() {
         return new ModelAndView("ratingByUserId");
@@ -26,7 +27,7 @@ public class RatingController {
     @RequestMapping("ratingById")
     public ModelAndView allMoviesController(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView("getRatingsByUserIdOutput");
-        modelAndView.addObject("ratings" , ratingService.getRatingByUserId(id));
+        modelAndView.addObject("ratings", ratingService.getRatingByUserId(id));
         return modelAndView;
     }
 }

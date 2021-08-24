@@ -2,11 +2,11 @@
 <html xmlns:th="https://thymeleaf.org">
 <head>
   <meta charset="ISO-8859-1">
-  <title>Insert title here</title>
+  <title>Ratings By User ID</title>
 </head>
 <body>
 <h2>Welcome</h2>
-<h1>Ratings By User </h1>
+<h1>Ratings By User ID </h1>
 
 <hr>
 <table border="1">
@@ -18,7 +18,7 @@
   </tr>
   <tr th:each="rating : ${ratings}">
     <td th:text="${rating.id }"></td>
-    <td th:text="${rating.rating }">/5</td>
+    <td th:text="${rating.rating } + '/5'"></td>
     <td th:text="${rating.userId }"></td>
     <td th:text="${rating.movieId }"></td>
   </tr>
