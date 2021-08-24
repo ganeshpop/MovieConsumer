@@ -3,6 +3,7 @@ package com.ganesh.controller;
 import com.ganesh.bean.MovieAndRating;
 import com.ganesh.bean.Rating;
 import com.ganesh.bean.RatingList;
+import com.ganesh.service.CatalogService;
 import com.ganesh.service.MovieService;
 import com.ganesh.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,12 @@ import java.util.Collection;
 public class CatalogController {
     MovieService movieService;
     RatingService ratingService;
+    CatalogService catalogService;
+
+    @Autowired
+    public void setCatalogService(CatalogService catalogService) {
+        this.catalogService = catalogService;
+    }
 
     @Autowired
     public void setRatingService(RatingService ratingService) {
@@ -37,19 +44,7 @@ public class CatalogController {
     @RequestMapping("showMoviesWithRatingByUserID")
     public ModelAndView moviesWithRatingsByUserController(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("getAllMoviesAndRatingByUserID");
-        Collection<Rating> ratingsByUser = ratingService.getRatingByUserId(Integer.parseInt(request.getParameter("id")));
-        Collection<MovieAndRating> moviesAndRatings= new ArrayList<>();
-        for (Rating rating: ratingsByUser) {
-            moviesAndRatings.add(
-                    new MovieAndRating(
-                            rating.getId(),
-                            rating.getUserId(),
-                            rating.getMovieId(),
-                            movieService.getMovieById(rating.getMovieId()).getName(),
-                            rating.getRating()));
-        }
-        modelAndView.addObject("moviesAndRatings", moviesAndRatings);
-
+        modelAndView.addObject("moviesAndRatings", catalogService.moviesWithRatingsByUser(Integer.parseInt(request.getParameter("id"))));
         return modelAndView;
     }
 }
